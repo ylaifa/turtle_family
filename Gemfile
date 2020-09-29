@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -48,12 +50,11 @@ end
 group :test do
   gem 'factory_bot_rails'
   gem 'faker'
-  gem "nyan-cat-formatter"
-  gem "rspec_junit_formatter"
+  gem 'nyan-cat-formatter'
+  gem 'rspec_junit_formatter'
   gem 'shoulda-matchers', '~> 3.0'
   gem 'simplecov', require: false
 end
 
-
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
