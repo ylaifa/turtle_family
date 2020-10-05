@@ -1,0 +1,2 @@
+class TurtleController < ApplicationController
+end
