@@ -1,2 +1,0 @@
-class TurtleController < ApplicationController
-end
