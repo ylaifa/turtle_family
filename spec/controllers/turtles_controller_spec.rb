@@ -16,6 +16,15 @@ RSpec.describe TurtlesController, type: :controller do
             expect(json_response[:turtle][:name]).to eq(turtle.name)
             expect(json_response[:turtle][:color]).to eq(turtle.color)
         end 
+
+        context "the turtle does not exist" do
+            let(:id) { "123" }
+
+            it "return not found" do
+                subject
+                expect(response).to be_not_found
+            end
+        end
     end
     describe "#create"
     describe "#update"
