@@ -1,5 +1,7 @@
 class TurtlesController < ApplicationController
     def index
+        turtles = Turtle.order(:created_at)
+        render json: turtles
     end
 
     def show
@@ -14,5 +16,8 @@ class TurtlesController < ApplicationController
     end
 
     def destroy
+        turtle = Turtle.find(params[:id])
+        turtle.destroy
+        head :no_content
     end
 end
