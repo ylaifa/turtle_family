@@ -41,55 +41,55 @@ RSpec.describe TurtlesController, type: :controller do
     end
   end
 
-	describe "#create" do
-		let(:name) { Faker::Movies::StarWars.character }
-		let(:color) { "rouge" }
+  describe "#create" do
+    let(:name) { Faker::Movies::StarWars.character }
+    let(:color) { "rouge" }
 
-		subject do
-			post :create, params: { name: name, color: color }
-		end
- 
-		it "creates the turtle" do
-			expect{ subject }.to change(Turtle, :count).from(0).to(1)
-			expect(json_response[:turtle][:name]).to eq(name)
-			expect(json_response[:turtle][:color]).to eq(color)
-			first_turtle = Turtle.first
-			expect(first_turtle.name).to eq(name)
-			expect(first_turtle.color).to eq(color)
-		end
+    subject do
+      post :create, params: { name: name, color: color }
+    end
 
-		context "with no name" do
-			let(:name) { nil }
-			it "fails" do
-				expect{ subject }.not_to change(Turtle, :count)
-				expect(response).to be_forbidden
-			end
-		end
+    it "creates the turtle" do
+      expect{ subject }.to change(Turtle, :count).from(0).to(1)
+      expect(json_response[:turtle][:name]).to eq(name)
+      expect(json_response[:turtle][:color]).to eq(color)
+      first_turtle = Turtle.first
+      expect(first_turtle.name).to eq(name)
+      expect(first_turtle.color).to eq(color)
+    end
 
-		context "with no color" do
-			let(:color) { nil }
-			it "fails" do
-				expect{ subject }.not_to change(Turtle, :count)
-				expect(response).to be_forbidden
-			end
-		end
-	end
+    context "with no name" do
+      let(:name) { nil }
+      it "fails" do
+        expect{ subject }.not_to change(Turtle, :count)
+        expect(response).to be_forbidden
+      end
+    end
 
-	describe "#update" do
-		let!(:turtle) { create(:turtle) }
-		let(:id) { turtle.id }
-		let(:name) { Faker::Movies::StarWars.character }
+    context "with no color" do
+      let(:color) { nil }
+      it "fails" do
+        expect{ subject }.not_to change(Turtle, :count)
+        expect(response).to be_forbidden
+      end
+    end
+  end
 
-		subject do
-			patch :update, params: { id: id, name: name }
-		end
+  describe "#update" do
+    let!(:turtle) { create(:turtle) }
+    let(:id) { turtle.id }
+    let(:name) { Faker::Movies::StarWars.character }
 
-		it "updates the turtle" do
-			expect{ subject }.to change{ turtle.reload.name }.to(name)
-			expect(json_response[:turtle][:name]).to eq(turtle.name)
-		end
+    subject do
+      patch :update, params: { id: id, name: name }
+    end
 
-		context "the turtle does not exist" do
+    it "updates the turtle" do
+      expect{ subject }.to change{ turtle.reload.name }.to(name)
+      expect(json_response[:turtle][:name]).to eq(turtle.name)
+    end
+
+    context "the turtle does not exist" do
       let(:id) { "123" }
 
       it "returns not found" do
@@ -97,8 +97,8 @@ RSpec.describe TurtlesController, type: :controller do
         expect(response).to be_not_found
       end
     end
-	end
-	
+  end
+
   describe "#destroy" do
     let!(:turtle) { create(:turtle) }
     let(:id) { turtle.id }
