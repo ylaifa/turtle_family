@@ -11,8 +11,8 @@ jobs:
       - checkout
       - run:
           name: Which bundler?
-          command: |
-            bundle install
+          command: bundle -v
+      - ruby/bundle-install
 
       # Database setup
       - run: bundle exec rails db:create db:migrate
