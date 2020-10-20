@@ -1,0 +1,8 @@
+{
+  "scripts": {
+  "precommit": "rspec --format progress"
+  },
+  "dependencies": {
+    "husky": "^4.3.0"
+  }
+}
