@@ -13,3 +13,30 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
+
+      # Database setup
+      - run: bundle exec rails db:create db:migrate
+
+      - run:
+          name: run linting
+          command: |
+            bundle exec rubocop
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            mkdir /tmp/test-results
+            bundle exec rspec --format progress \
+                            --format RspecJunitFormatter \
+                            --out /tmp/test-results/rspec.xml \
+                            --format progress
+      # collect reports
+      - store_test_results:
+          path: /tmp/test-results
+      - store_artifacts:
+          path: /tmp/test-results
+          destination: test-results
+      - store_artifacts:
+          path: ~/app/coverage
+          destination: coverage-results
+
