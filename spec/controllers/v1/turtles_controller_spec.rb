@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe TurtlesController, type: :controller do
+RSpec.describe V1::TurtlesController, type: :controller do
   describe "#index" do
     let!(:turtles) { create_list(:turtle, 5) }
 
