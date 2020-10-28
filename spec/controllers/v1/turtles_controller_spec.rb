@@ -91,14 +91,40 @@ RSpec.describe V1::TurtlesController, type: :controller do
     let!(:turtle) { create(:turtle) }
     let(:id) { turtle.id }
     let(:name) { Faker::Movies::StarWars.character }
+    let(:color) { "bleu" }
+    let(:email) { Faker::Internet.email }
 
     subject do
-      patch :update, params: { id: id, name: name }
+      patch :update, params: { id: id, name: name, color: color, email: email }
     end
 
     it "updates the turtle" do
       expect{ subject }.to change{ turtle.reload.name }.to(name)
       expect(json_response[:turtle][:name]).to eq(turtle.name)
+    end
+
+    context "with no name" do
+      let(:name) { nil }
+      it "fails" do
+        expect{ subject }.not_to change(Turtle, :count)
+        expect(response).to be_forbidden
+      end
+    end
+
+    context "with no color" do
+      let(:color) { nil }
+      it "fails" do
+        expect{ subject }.not_to change(Turtle, :count)
+        expect(response).to be_forbidden
+      end
+    end
+
+    context "with no email" do
+      let(:email) { nil }
+      it "successful" do
+        expect{ subject }.not_to change(Turtle, :count)
+        expect(response).to be_successful
+      end
     end
 
     context "the turtle does not exist" do
