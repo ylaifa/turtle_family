@@ -29,6 +29,7 @@ RSpec.describe V1::TurtlesController, type: :controller do
       expect(json_response[:turtle][:id]).to eq(turtle.id)
       expect(json_response[:turtle][:name]).to eq(turtle.name)
       expect(json_response[:turtle][:color]).to eq(turtle.color)
+      expect(json_response[:turtle][:email]).to eq(turtle.email)
     end
 
     context "the turtle does not exist" do
@@ -44,18 +45,21 @@ RSpec.describe V1::TurtlesController, type: :controller do
   describe "#create" do
     let(:name) { Faker::Movies::StarWars.character }
     let(:color) { "rouge" }
+    let(:email) { Faker::Internet.email }
 
     subject do
-      post :create, params: { name: name, color: color }
+      post :create, params: { name: name, color: color, email: email }
     end
 
     it "creates the turtle" do
       expect{ subject }.to change(Turtle, :count).from(0).to(1)
       expect(json_response[:turtle][:name]).to eq(name)
       expect(json_response[:turtle][:color]).to eq(color)
+      expect(json_response[:turtle][:email]).to eq(email)
       first_turtle = Turtle.first
       expect(first_turtle.name).to eq(name)
       expect(first_turtle.color).to eq(color)
+      expect(first_turtle.email).to eq(email)
     end
 
     context "with no name" do
@@ -71,6 +75,14 @@ RSpec.describe V1::TurtlesController, type: :controller do
       it "fails" do
         expect{ subject }.not_to change(Turtle, :count)
         expect(response).to be_forbidden
+      end
+    end
+
+    context "with no email" do
+      let(:email) { nil }
+      it "successful" do
+        expect{ subject }.to change(Turtle, :count).from(0).to(1)
+        expect(response).to be_successful
       end
     end
   end
