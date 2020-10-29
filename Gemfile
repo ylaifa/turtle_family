@@ -29,6 +29,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'pundit'
 gem 'rack-cors'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'bullet'
