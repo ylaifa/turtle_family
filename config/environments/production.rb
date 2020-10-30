@@ -49,6 +49,16 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
+  ActionMailer::Base.smtp_settings = {
+  :user_name => ENV['SENDGRID_LOGIN'],
+  :password => ENV['SENDGRID_PWD'],
+  :domain => 'monsite.fr',
+  :address => 'smtp.sendgrid.net',
+  :port => 587,
+  :authentication => :plain,
+  :enable_starttls_auto => true
+  }
+
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
