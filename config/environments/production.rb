@@ -50,10 +50,10 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   ActionMailer::Base.smtp_settings = {
-  :user_name => ENV['SENDGRID_USERNAME'],
-  :password => ENV['SENDGRID_PASSWORD'],
+  :user_name => ENV['MAILJET_USERNAME'],
+  :password => ENV['MAILJET_PASSWORD'],
   :domain => 'monsite.fr',
-  :address => 'smtp.sendgrid.net',
+  :address => 'in-v3.mailjet.com',
   :port => 587,
   :authentication => :plain,
   :enable_starttls_auto => true
