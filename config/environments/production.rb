@@ -49,14 +49,13 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
-  ActionMailer::Base.smtp_settings = {
-  :user_name => ENV['MAILJET_USERNAME'],
-  :password => ENV['MAILJET_PASSWORD'],
-  :domain => 'monsite.fr',
-  :address => 'in-v3.mailjet.com',
-  :port => 587,
-  :authentication => :plain,
-  :enable_starttls_auto => true
+  ActionMailer::Base.smtp_settings =   {
+    :address            => 'smtp.gmail.com',
+    :port               => 587,
+    :domain             => 'gmail.com',
+    :authentication     => :plain,
+    :user_name          => ENV['GMAIL_LOGIN'],
+    :password           => ENV['GMAIL_PWD']
   }
 
   # Use a different cache store in production.
