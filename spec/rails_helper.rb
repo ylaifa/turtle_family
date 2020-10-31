@@ -91,3 +91,5 @@ SimpleCov.start 'rails' do
     source_file.lines.count < 7
   end
 end
+
+ActiveJob::Base.queue_adapter = :test
